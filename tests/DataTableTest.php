@@ -53,11 +53,17 @@ final class DataTableTest extends TestCase
     }
 
     /** @dataProvider DataTableExceptionistProvider */
-    public function testDataTableException($ExcelFileName, $SheetName, $HeaderRow, $StartColumn)
+    public function testDataTableException($ExcelFileName, $SheetName, $HeaderRow, $StartColumn, $ExpectedMessage)
     {
+        if ($ExpectedMessage == "No such file")
+            $ExpectedMessage = "does not exist";
         $excelFile = "./BDDExcel/" . $ExcelFileName;
-        $this->expectException(Exception::class);
-        $list = Behavior::getExampleTable($excelFile, $SheetName, $HeaderRow, $StartColumn);
+        try {
+            $list = Behavior::getExampleTable($excelFile, $SheetName, $HeaderRow, $StartColumn);
+        } catch (Exception $e) {
+            $ExceptionMessage = $e->getMessage();
+        }
+        $this->assertStringContainsString($ExpectedMessage, $ExceptionMessage);
     }
 
     public function testDataTableDefaultSheet()
