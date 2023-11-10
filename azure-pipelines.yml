@@ -13,6 +13,7 @@ schedules:
 trigger:
   branches:
     include:
+    - master
     - PHP*
 
 
