@@ -4,7 +4,7 @@
     "keywords": ["BDD", "SBE", "ATDD", "Examples", "Agile", "User story", "business", "development", "testing", "documentation"],
     "homepage": "https://dev.azure.com/simplopen/ExcelBDD",
     "type": "library",
-    "license": "Apache Software License",
+    "license": "Apache-2.0",
     "authors": [
         {
             "name": "Zhang Keqiang Mike",
