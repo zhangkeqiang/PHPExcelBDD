@@ -1,0 +1,28 @@
+{
+    "name": "excelbdd/excelbdd",
+    "description": "conduct BDD by excel feature files",
+    "keywords": ["BDD", "SBE", "ATDD", "Examples", "Agile", "User story", "business", "development", "testing", "documentation"],
+    "homepage": "https://dev.azure.com/simplopen/ExcelBDD",
+    "type": "library",
+    "license": "Apache Software License",
+    "authors": [
+        {
+            "name": "Zhang Keqiang Mike",
+            "email": "zhangkq2000@hotmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2 || ^8.0",
+        "phpoffice/phpspreadsheet":"^1.29"
+    },
+    "require-dev": {
+        "phpunit/php-code-coverage": "^10.0",
+        "phpunit/phpunit": "^10.0"
+    },
+    
+    "autoload": {
+        "psr-4": {
+            "ExcelBDD\\ExcelBDD\\": "src/ExcelBDD/ExcelBDD"
+        }
+    }
+}

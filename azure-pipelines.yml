@@ -1,0 +1,67 @@
+# PHP
+# Test and package your PHP project.
+# Add steps that run tests, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/php
+
+schedules:
+- cron: "0 0 * * *"
+  displayName: Nightly Build
+  branches:
+    include:
+    - master
+
+trigger:
+  branches:
+    include:
+    - master
+    - PHP*
+
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  phpVersion: 8.1
+
+steps:
+- script: |
+    sudo update-alternatives --set php /usr/bin/php$(phpVersion)
+    sudo update-alternatives --set phar /usr/bin/phar$(phpVersion)
+    sudo update-alternatives --set phpdbg /usr/bin/phpdbg$(phpVersion)
+    sudo update-alternatives --set php-cgi /usr/bin/php-cgi$(phpVersion)
+    sudo update-alternatives --set phar.phar /usr/bin/phar.phar$(phpVersion)
+    sudo apt-get install php8.1-xdebug
+
+    # tail /etc/php/8.1/cli/php.ini
+    sudo sh -c "echo 'xdebug.mode=coverage' >> /etc/php/8.1/cli/php.ini"
+    tail /etc/php/8.1/cli/php.ini
+    php -version
+    # php -i
+  displayName: 'Use PHP version $(phpVersion)'
+
+- script: |
+    composer self-update
+    composer dump-autoload
+    composer install --no-interaction --prefer-dist
+  displayName: 'composer install'
+
+- script: |
+    ./vendor/bin/phpunit --version
+    ./vendor/bin/phpunit tests
+  displayName: 'Run tests with phpunit'
+
+- task: PublishTestResults@2
+  inputs:
+    testRunner: "JUnit" # !!! # Options: JUnit, NUnit, VSTest, xUnit, cTest
+    # Make sure the file name matches the file name you specified.
+    # A possibility is to add this as a parameter to the script
+    testResultsFiles: 'testReports/junit.xml'
+    # searchFolder: 'PowerShellExcelBDD'
+    failTaskOnFailedTests: true
+  displayName: "Publish Test Results"
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: 'testReports/cobertura.xml'
+

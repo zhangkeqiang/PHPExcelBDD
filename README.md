@@ -1,0 +1,1 @@
+Use Excel file as BDD feature file, get example data from excel files, support automation tests
