@@ -1,2 +1,4 @@
 vendor
 testReports
+composer.lock
+PHPExcelBDD.code-workspace
