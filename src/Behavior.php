@@ -135,8 +135,10 @@ final class Behavior
             }
             $actualStartColumn = $startColumn;
             $searchStartColumn = $actualStartColumn;
+            $IsBeforeStartColumn = false;
         } else {
             $searchStartColumn = 'A';
+            $IsBeforeStartColumn = true;
         }
 
         $spreadsheet = IOFactory::load($excelFile);
@@ -160,7 +162,6 @@ final class Behavior
         $maxTableCol = 0;
         $parameterNames = "Table Parameter Names are below";
 
-        $IsBeforeStartColumn = is_null($actualStartColumn);
         for ($column = $searchStartColumn; $column <= $highestColumm; $column++) {
             $header = $sheet->getCell($column . $headerRow)->getValue();
             $IsNullHeader = is_null($header);
@@ -169,12 +170,12 @@ final class Behavior
             } elseif (!$IsNullHeader and $IsBeforeStartColumn) {
                 $actualStartColumn = $column;
                 $IsBeforeStartColumn = false;
-                $parameterNames = $parameterNames . ", $" . strval($sheet->getCell($column . $headerRow)->getValue());
+                $parameterNames = $parameterNames . ", $" . strval($header);
             } elseif ($IsNullHeader and !$IsBeforeStartColumn) {
                 $maxTableCol = self::getColumn($column, -1);
                 break;
             } else {
-                $parameterNames = $parameterNames . ", $" . strval($sheet->getCell($column . $headerRow)->getValue());
+                $parameterNames = $parameterNames . ", $" . strval($header);
             }
         }
         if ($maxTableCol == 0)
