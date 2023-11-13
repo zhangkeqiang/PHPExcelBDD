@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-namespace ExcelBDD\ExcelBDD;
+namespace ExcelBDD;
 
 use Exception;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -15,7 +15,7 @@ final class Behavior
     {
         $spreadsheet = IOFactory::load($excelFile);
         if ($sheetName == null) {
-            $sheet = $spreadsheet->getSheet(0); // 读取第一個工作表
+            $sheet = $spreadsheet->getSheet(0); // read the first sheet
         } else {
             $sheet = $spreadsheet->getSheetByName($sheetName);
             if (is_null($sheet)) {
@@ -28,15 +28,15 @@ final class Behavior
             }
         }
 
-        $highestRow = $sheet->getHighestRow(); // 取得总行数
-        $highestColumm = $sheet->getHighestColumn(); // 取得总列数
+        $highestRow = $sheet->getHighestRow(); 
+        $highestColumm = $sheet->getHighestColumn(); 
 
         $IsFound = False;
         $parameterRow = 0;
         $parameterCol = '1';
-        for ($row = 1; $row <= $highestRow; $row++) //行号从1开始
+        for ($row = 1; $row <= $highestRow; $row++) 
         {
-            for ($column = 'A'; $column <= $highestColumm; $column++) //列数是以A列开始
+            for ($column = 'A'; $column <= $highestColumm; $column++) 
             {
                 if (empty($sheet->getCell($column . $row)->getValue())) {
                     continue;
@@ -141,7 +141,7 @@ final class Behavior
 
         $spreadsheet = IOFactory::load($excelFile);
         if ($sheetName == null) {
-            $sheet = $spreadsheet->getSheet(0); // 读取第一個工作表
+            $sheet = $spreadsheet->getSheet(0); 
         } else {
             $sheet = $spreadsheet->getSheetByName($sheetName);
             if (is_null($sheet)) {
@@ -154,8 +154,8 @@ final class Behavior
             }
         }
 
-        $highestRow = $sheet->getHighestRow(); // 取得总行数
-        $highestColumm = $sheet->getHighestColumn(); // 取得总列数
+        $highestRow = $sheet->getHighestRow(); 
+        $highestColumm = $sheet->getHighestColumn(); 
 
         $maxTableCol = 0;
         $parameterNames = "Table Parameter Names are below";

@@ -22,7 +22,7 @@
     
     "autoload": {
         "psr-4": {
-            "ExcelBDD\\ExcelBDD\\": "src/ExcelBDD/ExcelBDD"
+            "ExcelBDD\\": "src/"
         }
     }
 }

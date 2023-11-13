@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use ExcelBDD\ExcelBDD\Behavior;
+use ExcelBDD\Behavior;
 
 final class BehaviorTest extends TestCase
 {
